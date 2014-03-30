@@ -1,4 +1,0 @@
-ec504project
-============
-
-VideoEncoder

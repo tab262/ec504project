@@ -53,10 +53,10 @@ public class JPEGtoRaw {
 		}catch (IOException ex) {
            System.out.println("oops");
         }
-		
+		System.out.println("bos size: " + bos.size());
 		//convert the BAOS into an array of bytes
 		byte[] bytes = bos.toByteArray();
-		for(int i = 0; i < 100;i++){
+		for(int i = 0; i < 0;i++){
 			System.out.print(bytes[i] + " ");
 			if(i % 9 == 0 && i != 0)
 				System.out.println();

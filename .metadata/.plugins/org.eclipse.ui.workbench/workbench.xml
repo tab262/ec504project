@@ -165,6 +165,12 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name=".classpath" tooltip="/home/gaddis/git/ec504project/.classpath">
+<persistable uri="file:/home/gaddis/git/ec504project/.classpath"/>
+</file>
+<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name=".project" tooltip="/home/gaddis/git/ec504project/.project">
+<persistable uri="file:/home/gaddis/git/ec504project/.project"/>
+</file>
 <file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name=".project" tooltip="/home/gaddis/School/ec504/ec504project/.project">
 <persistable uri="file:/home/gaddis/School/ec504/ec504project/.project"/>
 </file>

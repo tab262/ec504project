@@ -1,3 +1,9 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+
 
 public class DCT {
 	public static final int[][] quantMat = {{16,11,10,16,24,40,51,61},
@@ -117,6 +123,58 @@ public class DCT {
 		return sum / (Math.pow(original.length, 2));
 	}
 	
+	
+	public static int[][] getSampleData(){
+		int[][] data = new int[32][32];
+		int i,j;
+		String fileName = "/home/gaddis/School/ec504/ec504project/sample.txt";
+		
+		BufferedReader br = null;
+		try{
+			String sCurrentLine;
+			br = new BufferedReader(new FileReader(fileName));
+			i = 0;
+			while((sCurrentLine = br.readLine()) != null){
+				List<String> cList = Arrays.asList(sCurrentLine.split(","));
+				//System.out.println(cList);
+				for(j = 0; j < 32; j++){
+					data[i][j] = Integer.parseInt(cList.get(j));
+				}
+				i++;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (br != null)br.close();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+ 		
+		return data;
+		
+	}
+	
+	
+	public static int[][][] parseArray(int[][] a){
+		int dimension = a.length / 8;
+		System.out.println(dimension);
+		
+		int[][][] arrays = new int[dimension][8][8];
+		
+		int i,j,k;
+		
+		//scans 8x8 blocks from top to bottom, left to right
+		
+		
+		
+		
+		return arrays;
+		
+	}
+	
+	
 	public static void main(String[] args) {
 		int[][] a = { 	{52,55,61,66,70,61,64,73}, 
 						{63,59,55,90,109,85,69,72},
@@ -127,7 +185,11 @@ public class DCT {
 						{85,71,64,59,55,61,65,83},
 						{87,79,69,68,65,76,78,94}};
 		
+
+		int[][] data = getSampleData();
+		int[][][] arrays = parseArray(data);
 		
+		/*
 		printI(a);
 		double[][] G = DCT(a);
 		System.out.println("-----------");
@@ -138,7 +200,9 @@ public class DCT {
 		System.out.println("-----------");
 		int[][] f = IDCT(Q);
 		printI(f);
-		System.out.println("The average absolute error per pixel is " + getError(a,f));
+		System.out.println("The average absolute error per pixel is " + getError(a,f) + "%");
+		*/
+		
 	}
 	
 	

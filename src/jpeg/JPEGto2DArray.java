@@ -63,15 +63,16 @@ public class JPEGto2DArray {
 			int[][] b = new int[height][width];
 			int[][] c = new int[height][width];
 			int[][] d = new int[height][width];
+			
 
 			int[] data = new int[width * height];
 			in.getRGB(0, 0, width, height, data, 0, width);
 
 			for (int i = 0; i < height; i++) {
 				for (int j = 0; j < width; j++) {
-					b[i][j] = (int)((data[i] >> 16) & 0xff);
-					c[i][j] = ((data[i] >> 8) & 0xff);
-					d[i][j] = (data[i] & 0xff);
+					b[i][j] = ((data[i*height + j] >> 16) & 0xff);
+					c[i][j] = ((data[i*height + j] >> 8) & 0xff);
+					d[i][j] = (data[i*height + j] & 0xff);
 				}
 			}
 

@@ -17,6 +17,8 @@ public class CompressJpeg {
 	}
 	
 	
+	
+	
 	public static void processImage(String fileName) throws IOException{
 		if(DEBUG) System.out.println("Processing " + fileName);
 		BufferedImage in = getImage(fileName);
@@ -28,6 +30,15 @@ public class CompressJpeg {
 		int horzBlocks = width / blockSize;
 		if(DEBUG) System.out.println("#Vertical Blocks: " + vertBlocks + "\n#Horizontal Blocks: " + horzBlocks);
 		int[][][] rgbl = JPEGto2DArray.getRGBL(in);
+		int[][] red = rgbl[0];
+		int[][] green = rgbl[1];
+		int[][] blue = rgbl[2];
+		int[][] alpha = rgbl[3];
+		JPEGto2DArray.writeToTextFile(red,"red");
+		JPEGto2DArray.writeToTextFile(green,"green");
+		JPEGto2DArray.writeToTextFile(blue,"blue");
+		JPEGto2DArray.writeToTextFile(alpha,"alpha");
+		
 		
 	}
 	

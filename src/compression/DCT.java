@@ -57,6 +57,48 @@ public class DCT {
 		return G;
 	}
 
+	
+	public static double[][] DCT2(int[][] b,int rowStart,int colStart){
+		double[][] G = new double[8][8];
+		int[][] g = shift(b,rowStart,colStart);
+		double a=1,v=1;
+		double s = 1 / Math.sqrt(2);
+		int i,j,x,y;
+		int pix;
+		double coeff,sum,val1,val2;
+		for(i = 0; i < 8 ; i++){
+			for(j = 0; j < 8 ;j++){
+				
+				if(i == 0){
+					a = s;
+				}else{
+					a = 1;
+				}
+				
+				if(j == 0){
+					v = s;
+				}else{
+					v = 1;
+				}
+				
+				coeff = (1 / (Math.sqrt(2*8)));
+				coeff = coeff * a * v;
+				sum = 0;
+				for(x = 0; x < 8; x++ ){
+					for(y = 0; y < 8 ; y++){
+						pix = g[x][y];
+						val1 = Math.cos(((2*x + 1) * i * Math.PI) / 16);
+						val2 = Math.cos(((2*y + 1) * j * Math.PI) / 16);
+						sum += pix * val1 * val2;
+					}	
+				}
+			
+				G[i][j]	= coeff * sum;
+			}
+		}
+		return G;
+	}
+	
 	public static int[][] quantize(double[][] g){
 		int[][] Q = new int[8][8];
 		for(int i = 0; i < 8 ; i++){
@@ -259,6 +301,18 @@ public class DCT {
 		
 		return g;
 	}
+	
+	public static int[][] shift(int[][] a, int rowStart,int colStart){
+		int[][] g = new int[8][8];
+		for(int i = 0; i < 8;i++){
+			for(int j = 0; j < 8;j++){
+				g[i][j] = a[rowStart + i][colStart + j] - 128;
+			}
+		}
+		
+		return g;
+	}
+	
 	
 
 }

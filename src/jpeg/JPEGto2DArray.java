@@ -30,7 +30,6 @@ public class JPEGto2DArray {
 		return product; 
 	}
 
-	
 	public static void writeToTextFile(int[][] image2DArray, String filename){
 		try{  
 	           FileWriter fr = new FileWriter((System.getProperty("user.dir") + "/src/jpeg/") + filename + ".csv");  
@@ -51,7 +50,6 @@ public class JPEGto2DArray {
 	        System.out.println(e);     
 	       }  
 	}
-	
 	
 	public static int[][] getRed(BufferedImage in){
 		int width = in.getWidth();
@@ -211,15 +209,17 @@ public class JPEGto2DArray {
 		return rgbl;
 		
 	}
-
 	
 	public static void main(String args[]) throws IOException{ 
 		
 
 		
 	}
+
+
 }
-	/*
+	
+/*
 		
 		int width=437,height=370;
 		

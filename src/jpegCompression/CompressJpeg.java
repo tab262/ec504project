@@ -95,13 +95,25 @@ public class CompressJpeg {
 	public static void main(String[] args) throws IOException{
 		String fileName = System.getProperty("user.dir") + "/data/img2.jpg";
 		System.out.println("Getting raw RGBA components for " + fileName);
+		
+		long startTime = System.nanoTime(); 
 		int[][][] rgba = processImage(fileName);	
+		long endTime = System.nanoTime(); 
+		
+		// find duration in milliseconds (need to convert from nanoseconds)
+		double duration = (endTime - startTime)/1000000; 
+		System.out.printf("%n Time to process image into RGBA matrix: %.2f milliseconds %n", duration); 
 		
 		
+		startTime = System.nanoTime(); 
 		System.out.println("\nCompressing RGBA components...\n");
 		for(int i = 0; i < 4; i++){
 			compressComponent(rgba[i],i);
 		}
+		endTime = System.nanoTime(); 
+		duration = (endTime - startTime)/1000000; 
+		System.out.printf("%n Time to compress RBGA components: %.2f milliseconds %n", duration); 
+		
 		
 		System.out.println("\nDone...");
 		

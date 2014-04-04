@@ -32,23 +32,24 @@ public class JPEGto2DArray {
 
 	public static void writeToTextFile(int[][] image2DArray, String filename){
 		try{  
-	           FileWriter fr = new FileWriter((System.getProperty("user.dir") + "/data/") + filename + ".csv");  
-	           BufferedWriter br = new BufferedWriter(fr);  
-	           PrintWriter out = new PrintWriter(br);  
-	           for(int i=0; i < image2DArray.length; i++){  
-	               for(int j=0; j < image2DArray[1].length;j++){
-	                     out.write(image2DArray[i][j] + ",");  
-	               }
-	               out.write("\n");
-	           }
-	           out.close();  
+	           	System.out.println("Saving file " + (System.getProperty("user.dir") + "/data/" + filename + ".csv"));  
+				FileWriter fr = new FileWriter((System.getProperty("user.dir") + "/data/") + filename + ".csv");  
+				BufferedWriter br = new BufferedWriter(fr);  
+				PrintWriter out = new PrintWriter(br);  
+				for(int i=0; i < image2DArray.length; i++){  
+					for(int j=0; j < image2DArray[1].length;j++){
+						out.write(image2DArray[i][j] + ",");  
+					}
+					out.write("\n");
+				}
+				out.close();  
 	             
 	             
-	       }  
+	       	}  
 	         
-	       catch(IOException e){  
-	        System.out.println(e);     
-	       }  
+	       	catch(IOException e){  
+	       		System.out.println(e);     
+	       	}  
 	}
 	
 	public static int[][] getRed(BufferedImage in){

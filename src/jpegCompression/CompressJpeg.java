@@ -1,10 +1,15 @@
 package jpegCompression;
-import jpeg.JPEGto2DArray;
 import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.imageio.ImageIO;
+
+import jpeg.JPEGto2DArray;
+import compression.DCT;
 
 
 public class CompressJpeg {
@@ -19,7 +24,7 @@ public class CompressJpeg {
 	
 	
 	
-	public static void processImage(String fileName) throws IOException{
+	public static int[][][] processImage(String fileName) throws IOException{
 		if(DEBUG) System.out.println("Processing " + fileName);
 		BufferedImage in = getImage(fileName);
 		int height = in.getHeight();
@@ -29,23 +34,65 @@ public class CompressJpeg {
 		int vertBlocks = height / blockSize;
 		int horzBlocks = width / blockSize;
 		if(DEBUG) System.out.println("#Vertical Blocks: " + vertBlocks + "\n#Horizontal Blocks: " + horzBlocks);
-		int[][][] rgbl = JPEGto2DArray.getRGBL(in);
-		int[][] red = rgbl[0];
-		int[][] green = rgbl[1];
-		int[][] blue = rgbl[2];
-		int[][] alpha = rgbl[3];
+		int[][][] rgba = JPEGto2DArray.getRGBL(in);
+		int[][] red = rgba[0];
+		int[][] green = rgba[1];
+		int[][] blue = rgba[2];
+		int[][] alpha = rgba[3];
 		JPEGto2DArray.writeToTextFile(red,"red");
 		JPEGto2DArray.writeToTextFile(green,"green");
 		JPEGto2DArray.writeToTextFile(blue,"blue");
 		JPEGto2DArray.writeToTextFile(alpha,"alpha");
 		
+		return rgba;
 		
+	}
+	
+	public static void compressComponent(int[][] component, int componentCode) throws IOException{
+		String fileName;
+		if(componentCode == 0)
+			fileName = "compressedRed";
+		else if(componentCode == 1)
+			fileName = "compressedGreen";
+		else if(componentCode == 2)
+			fileName = "compressedBlue";
+		else
+			fileName = "compressedAlpha";
+		
+		FileWriter fr = new FileWriter((System.getProperty("user.dir") + "/src/jpeg/") + fileName + ".csv");  
+        BufferedWriter br = new BufferedWriter(fr);  
+        PrintWriter out = new PrintWriter(br);
+        
+        
+        int i1,j1;
+		int [][] temp = new int[8][8];
+		int vBlocks = component.length;
+		int hBlocks = component[1].length;
+		
+		for(int i = 0; i < vBlocks; i++){
+			for(int j = 0; j < hBlocks;j++){
+				i1 = i * 8;
+				j1 = j * 8;
+				
+				temp = DCT.quantize(DCT.DCT2(component,i1,j1));
+				
+				for(int row = 0; row < 8;row++){
+					for(int col = 0; col < 8; col++){
+						//System.out.print("[" + i + "," + j + "]" + temp[row][col]+" ");
+						out.write(temp[row][col]+",");
+					}
+					out.write("\n");
+				}
+			}
+		}
+        
+        
+        out.close();
 	}
 	
 	public static void main(String[] args) throws IOException{
 		String fileName = System.getProperty("user.dir") + "/src/jpeg/redball.jpeg";
-		processImage(fileName);
-		
+		int[][][] rgba = processImage(fileName);	
 		
 	}
 	

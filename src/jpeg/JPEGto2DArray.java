@@ -32,7 +32,7 @@ public class JPEGto2DArray {
 
 	public static void writeToTextFile(int[][] image2DArray, String filename){
 		try{  
-	           FileWriter fr = new FileWriter((System.getProperty("user.dir") + "/src/jpeg/") + filename + ".csv");  
+	           FileWriter fr = new FileWriter((System.getProperty("user.dir") + "/data/") + filename + ".csv");  
 	           BufferedWriter br = new BufferedWriter(fr);  
 	           PrintWriter out = new PrintWriter(br);  
 	           for(int i=0; i < image2DArray.length; i++){  

@@ -51,15 +51,15 @@ public class CompressJpeg {
 	public static void compressComponent(int[][] component, int componentCode) throws IOException{
 		String fileName;
 		if(componentCode == 0)
-			fileName = "compressedRed";
+			fileName = "redCompressed";
 		else if(componentCode == 1)
-			fileName = "compressedGreen";
+			fileName = "greenCompressed";
 		else if(componentCode == 2)
-			fileName = "compressedBlue";
+			fileName = "blueCompressed";
 		else
-			fileName = "compressedAlpha";
+			fileName = "alphaCompressed";
 		
-		FileWriter fr = new FileWriter(System.getProperty("user.dir") + "/src/jpegCompression/" + fileName + ".csv");  
+		FileWriter fr = new FileWriter(System.getProperty("user.dir") + "/data/" + fileName + ".csv");  
         BufferedWriter br = new BufferedWriter(fr);  
         PrintWriter out = new PrintWriter(br);
         
@@ -79,11 +79,10 @@ public class CompressJpeg {
 				for(int row = 0; row < 8;row++){
 					for(int col = 0; col < 8; col++){
 						//System.out.print("[" + i + "," + j + "]" + temp[row][col]+" ");
-						
-						out.write(temp[row][col]+",");
-							
+						if(temp[row][col]!=0)
+							out.write(temp[row][col] +"");
 					}
-					out.write("\n");
+					//out.write("\n");
 				}
 				out.write("-\n");
 			}
@@ -94,10 +93,12 @@ public class CompressJpeg {
 	}
 	
 	public static void main(String[] args) throws IOException{
-		String fileName = System.getProperty("user.dir") + "/src/jpeg/redball.jpeg";
+		String fileName = System.getProperty("user.dir") + "/data/img2.jpg";
 		int[][][] rgba = processImage(fileName);	
 		for(int i = 0; i < 4; i++)
 			compressComponent(rgba[i],i);
+		
+		System.out.println("Done...");
 	}
 	
 }

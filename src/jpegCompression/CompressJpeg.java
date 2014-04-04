@@ -59,30 +59,33 @@ public class CompressJpeg {
 		else
 			fileName = "compressedAlpha";
 		
-		FileWriter fr = new FileWriter((System.getProperty("user.dir") + "/src/jpeg/") + fileName + ".csv");  
+		FileWriter fr = new FileWriter(System.getProperty("user.dir") + "/src/jpegCompression/" + fileName + ".csv");  
         BufferedWriter br = new BufferedWriter(fr);  
         PrintWriter out = new PrintWriter(br);
         
         
         int i1,j1;
 		int [][] temp = new int[8][8];
-		int vBlocks = component.length;
-		int hBlocks = component[1].length;
-		
+		int vBlocks = component.length/8;
+		int hBlocks = component[1].length/8;
+		System.out.println(hBlocks);
 		for(int i = 0; i < vBlocks; i++){
 			for(int j = 0; j < hBlocks;j++){
 				i1 = i * 8;
 				j1 = j * 8;
-				
+				//System.out.println(i1 + " " + j1);
 				temp = DCT.quantize(DCT.DCT2(component,i1,j1));
 				
 				for(int row = 0; row < 8;row++){
 					for(int col = 0; col < 8; col++){
 						//System.out.print("[" + i + "," + j + "]" + temp[row][col]+" ");
+						
 						out.write(temp[row][col]+",");
+							
 					}
 					out.write("\n");
 				}
+				out.write("-\n");
 			}
 		}
         
@@ -93,7 +96,8 @@ public class CompressJpeg {
 	public static void main(String[] args) throws IOException{
 		String fileName = System.getProperty("user.dir") + "/src/jpeg/redball.jpeg";
 		int[][][] rgba = processImage(fileName);	
-		
+		for(int i = 0; i < 4; i++)
+			compressComponent(rgba[i],i);
 	}
 	
 }

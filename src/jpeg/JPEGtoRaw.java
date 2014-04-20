@@ -26,7 +26,7 @@ public class JPEGtoRaw {
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		
 		String dir = System.getProperty("user.dir");
-		String fileName = dir + "/data/sample.jpeg";
+		String fileName = dir + "/data/img2.jpg";
 		
 		File file = new File(fileName);
 		
@@ -58,7 +58,7 @@ public class JPEGtoRaw {
 		
 		//convert the BAOS into an array of bytes
 		byte[] bytes = bos.toByteArray();
-		for(int i = 0; i < 0;i++){
+		for(int i = 0; i < 20;i++){
 			System.out.print(bytes[i] + " ");
 			if(i % 9 == 0 && i != 0)
 				System.out.println();
@@ -72,12 +72,12 @@ public class JPEGtoRaw {
 		//This iterator allows us to 'decode' the bytes for the jpg format
 		//Returns an Iterator containing all currently registered ImageReaders 
 		//that claim to be able to decode the named format.
+		//ImageIO is a class containing static methods for locating ImageReaders
+        //and ImageWriters, and performing simple encoding and decoding.
 		Iterator<?> readers = ImageIO.getImageReadersByFormatName("jpg");
  
-        //ImageIO is a class containing static methods for locating ImageReaders
-        //and ImageWriters, and performing simple encoding and decoding. 
- 
-		//We grab the first Image reader from raders
+      
+		//We grab the first Image reader from readers
         ImageReader reader = (ImageReader) readers.next();
         
         //bis Is the internal buffer to hold the read bytes
@@ -89,7 +89,7 @@ public class JPEGtoRaw {
         ImageReadParam param = reader.getDefaultReadParam();
  
         Image image = reader.read(0, param);
-        System.out.println(image.getHeight(null) + " " + image.getWidth(null));
+        System.out.println("Height:"  + image.getHeight(null) + " Width:" + image.getWidth(null));
         //got an image file
  
         BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_RGB);

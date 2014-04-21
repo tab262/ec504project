@@ -19,6 +19,20 @@ import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 
 
+/*
+ Streams can be represented by a simple model of being
+ a sequence of data which can be read from or written to a
+ source/destination. 
+ 
+ Byte streams can be used to perform input and output
+ of 8-bit bytes. They ultimately form the foundation
+ for other types of streams like char and int streams.
+  
+  
+  Different streams will adapt to the data type 
+  automatically.
+ */
+
 public class JPEGtoRaw {
 
 	
@@ -38,6 +52,9 @@ public class JPEGtoRaw {
 		/*
 		 * BAOS is an output stream in which the data is written into a byte array
 		 * The buffer grows as data is written into it
+		 * 
+		 * It creates a buffer in memory and all the data sent to the stream
+		 * is stored in the buffer
 		 */
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		byte[] buf = new byte[1024];
@@ -45,6 +62,7 @@ public class JPEGtoRaw {
 		try{
 			//We read byte byte until read returns -1, meaning it has reached the end of the
 			//the file
+			// fis is the FileInputStream, while buf is 1024 byte buffer
 			for (int readNum; (readNum = fis.read(buf)) != -1;) {
                 //Writes to this byte array output stream
                 bos.write(buf, 0, readNum); 
@@ -65,8 +83,13 @@ public class JPEGtoRaw {
 		}
 		System.out.println("Number of bytes: " + bytes.length);
 		
+		//Bytes is now a Java array containing all of the bytes from the 
+		//imported file
+		
 		//We pass the array to the BAIS, which is an internal buffer that contains
 		//bytes that may be read from the stream.
+		//This class allows a buffer in memory to be used as an input stream, where
+		//the input is a byte array. 
 		ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
         
 		//This iterator allows us to 'decode' the bytes for the jpg format

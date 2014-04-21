@@ -12,7 +12,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
@@ -24,13 +26,27 @@ import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
  
  
 public class JPEGtoRaw2 {
+	 
+	// list of JPEGS that will serve as the frames
+	public List<String> frames = new ArrayList<String>(); 
+	public static Movie m = new Movie("movieTest");
+	public static String dirName = System.getProperty("user.dir");
+	
+	
 	public static void main(String[] args) throws IOException{
 		
-		String dirName = System.getProperty("user.dir");
+		// String dirName = System.getProperty("user.dir");
 		String fileName = dirName + "/data/test.jpeg";
 		System.out.println(fileName);
+		
+		File origFile = new File(fileName); 
+		long origLength = origFile.length(); 
+		System.out.printf("Original file test.jpeg was %d KB \n", origLength/1000);
 
 		testCompression(fileName);
+		generalCompression(fileName); 
+		m.save(); 
+		
 	}
 	
 	public static void testCompression(String fileName) throws IOException{
@@ -56,6 +72,7 @@ public class JPEGtoRaw2 {
 		ImageWriter writer = (ImageWriter) writers.next();
 		ImageOutputStream ios = ImageIO.createImageOutputStream(os);
 		writer.setOutput(ios);
+		
 
 		ImageWriteParam param = writer.getDefaultWriteParam();
 
@@ -72,6 +89,10 @@ public class JPEGtoRaw2 {
 		os.close();
 		ios.close();
 		writer.dispose();
+		
+		long newLength = compressedImageFile.length(); 
+		System.out.printf("Original file test_out.jpeg was %d KB \n", newLength/1000);
+
 
 }
 		
@@ -79,7 +100,7 @@ public class JPEGtoRaw2 {
 	
 	public static void generalCompression(String fileName) throws IOException{
 		
-		String dirName = System.getProperty("user.dir");
+		// String dirName = System.getProperty("user.dir");
 		
 		ByteArrayOutputStream baos=new ByteArrayOutputStream(1000);
 		
@@ -89,19 +110,21 @@ public class JPEGtoRaw2 {
 		System.out.println("IMG: " + img.getHeight() + "x" + img.getWidth());
 		
 		ImageIO.write(img, "jpg", baos);
+		 
+		m.addFrame(baos);
 		
 		
-		System.out.println("Number of Bytes In image: " + baos.size());
+//		System.out.println("Number of Bytes In image: " + baos.size());
 		baos.flush();
- 
-		String base64String=Base64.encode(baos.toByteArray());
-		System.out.println("String: " + base64String.length());
-		baos.close();
- 
-		byte[] bytearray = Base64.decode(base64String);
-		System.out.println("BYTEARRAY: " + bytearray.length);
-		BufferedImage imag=ImageIO.read(new ByteArrayInputStream(bytearray));
-		System.out.println("IMAG: " + imag.getHeight() + "x" + imag.getWidth());
-		ImageIO.write(imag, "jpg", new File(dirName+"/data/","test2.jpeg"));
+// 
+//		String base64String=Base64.encode(baos.toByteArray());
+//		System.out.println("String: " + base64String.length());
+//		baos.close();
+// 
+//		byte[] bytearray = Base64.decode(base64String);
+//		System.out.println("BYTEARRAY: " + bytearray.length);
+//		BufferedImage imag=ImageIO.read(new ByteArrayInputStream(bytearray));
+//		System.out.println("IMAG: " + imag.getHeight() + "x" + imag.getWidth());
+//		ImageIO.write(imag, "jpg", new File(dirName+"/data/","test2.jpeg"));
 	}
 }

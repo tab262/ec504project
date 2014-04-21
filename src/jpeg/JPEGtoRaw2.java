@@ -47,7 +47,7 @@ public class JPEGtoRaw2 {
 		// create a BufferedImage as the result of decoding the supplied InputStream
 		BufferedImage image = ImageIO.read(is);
 
-				// get all image writers for JPG format
+		// get all image writers for JPG format
 		Iterator<ImageWriter> writers = ImageIO.getImageWritersByFormatName("jpg");
 
 		if (!writers.hasNext())

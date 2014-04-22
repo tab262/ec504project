@@ -28,24 +28,42 @@ import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 public class JPEGtoRaw2 {
 	 
 	// list of JPEGS that will serve as the frames
-	public List<String> frames = new ArrayList<String>(); 
+	public static List<String> frames = new ArrayList<String>(); 
 	public static Movie m = new Movie("movieTest");
 	public static String dirName = System.getProperty("user.dir");
+	public static double size = 0; 
 	
 	
 	public static void main(String[] args) throws IOException{
 		
-		// String dirName = System.getProperty("user.dir");
-		String fileName = dirName + "/data/test.jpeg";
-		System.out.println(fileName);
+//		// String dirName = System.getProperty("user.dir");
+//		String fileName = dirName + "/data/test.jpeg";
+//		System.out.println(fileName);
+//		
+//		File origFile = new File(fileName); 
+//		long origLength = origFile.length(); 
+//		System.out.printf("Original file test.jpeg was %d KB \n", origLength/1000);
+//
+//		// testCompression(fileName);
 		
-		File origFile = new File(fileName); 
-		long origLength = origFile.length(); 
-		System.out.printf("Original file test.jpeg was %d KB \n", origLength/1000);
-
-		testCompression(fileName);
-		generalCompression(fileName); 
+		String fileName = dirName + "/data/"; 
+		frames.add(fileName + "one.jpg"); 
+		frames.add(fileName + "two.jpg"); 
+		frames.add(fileName + "three.jpg"); 
+		frames.add(fileName + "four.jpg"); 
+		frames.add(fileName + "five.jpg"); 
+		frames.add(fileName + "six.jpg"); 
+		
+		for (String s: frames){ 
+			File file = new File(s); 
+			double fileLen = ((double) file.length())/1000; 
+			size += fileLen; 
+			generalCompression(s);
+		}
+		 
 		m.save(); 
+		System.out.printf("Size of all original images is %f KB \n", size); 
+		System.out.printf("Size of the movie file is %f KB \n", m.getSize()); 
 		
 	}
 	

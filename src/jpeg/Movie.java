@@ -13,7 +13,6 @@ public class Movie {
 	List<ByteArrayOutputStream> baosList = new ArrayList<ByteArrayOutputStream>(); 
 	String dirName = System.getProperty("user.dir");
 	String fileName = dirName + "/data/";
-	double size; 
 	
 	// movie constructor takes in a String for the fileName
 	public Movie(String name) { 
@@ -40,5 +39,13 @@ public class Movie {
 	// add a new image/frame to the movie
 	public void addFrame(ByteArrayOutputStream newFrame) { 
 		baosList.add(newFrame); 
+	}
+	
+	// gets size of movie file in KB
+	public double getSize() { 
+		File file = new File(fileName); 
+		long fileLen = file.length();
+		double size = ((double) fileLen)/1000; 
+		return size; 
 	}
 }

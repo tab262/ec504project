@@ -22,6 +22,24 @@ public class Movie  implements java.io.Serializable{
 		}
 	}
 	
+	
+	public void saveMovie(String fileName,String dirName){
+		//http://www.tutorialspoint.com/java/java_serialization.htm
+		try
+	      {
+	         FileOutputStream fileOut =
+	         new FileOutputStream(dirName + "/movies/movie1.ser");
+	         ObjectOutputStream out = new ObjectOutputStream(fileOut);
+	         out.writeObject(this);
+	         out.close();
+	         fileOut.close();
+	         System.out.printf("Serialized data is saved in " + dirName + "movies/");
+	      }catch(IOException i)
+	      {
+	          i.printStackTrace();
+	      }
+	}
+	
 	public static void main(String[] args) throws IOException{
 		String dirName = System.getProperty("user.dir") + "/data/";
 		System.out.println(dirName);
@@ -32,21 +50,10 @@ public class Movie  implements java.io.Serializable{
 		files[3] = dirName + "four.jpg";
 		files[4] = dirName + "five.jpg";
 		Movie m = new Movie(files,.5f);
+		m.saveMovie("movie2", dirName);
 		
 		
-		try
-	      {
-	         FileOutputStream fileOut =
-	         new FileOutputStream(dirName + "/movies/movie1.ser");
-	         ObjectOutputStream out = new ObjectOutputStream(fileOut);
-	         out.writeObject(m);
-	         out.close();
-	         fileOut.close();
-	         System.out.printf("Serialized data is saved in " + dirName + "movies/");
-	      }catch(IOException i)
-	      {
-	          i.printStackTrace();
-	      }
+		
 	}
 	
 }

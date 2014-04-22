@@ -66,9 +66,7 @@ public class Frame implements java.io.Serializable{
 	public Frame(String fileName,float quality) throws IOException{
 		System.out.println(fileName);
 		ByteArrayOutputStream baos=new ByteArrayOutputStream(1000);
-		
 		BufferedImage img=ImageIO.read(new File(fileName));		
-		
 		this.height = img.getHeight();
 		this.width = img.getWidth();
 		ImageIO.write(img, "jpg", baos);

@@ -3,29 +3,19 @@ package movie;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Iterator;
 
-import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
-
-import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
-import javax.imageio.ImageWriteParam;
-import javax.imageio.ImageWriter;
-import javax.imageio.stream.ImageOutputStream;
 
 
-public class Frame {
+public class Frame implements java.io.Serializable{
 
 	ByteArrayOutputStream baos;
 	byte[] bytearray;
 	byte[] ba64;
 	int height,width;
 	
+	/*
 	public Frame(String fileName,float quality) throws IOException{
 		//String dirName = System.getProperty("user.dir");
 		//String fName = dirName + "/data/" + fileName;
@@ -69,9 +59,22 @@ public class Frame {
 		ios.close();
 		writer.dispose();
 		
-		//System.out.printf("Original file: " + oldLength/1000.0 + "-Compressed file:" + newLength/1000.0 +"-" + (100*newLength/oldLength)+"%\n");
-		
 	}
+	*/
+	
+	
+	public Frame(String fileName,float quality) throws IOException{
+		System.out.println(fileName);
+		ByteArrayOutputStream baos=new ByteArrayOutputStream(1000);
+		
+		BufferedImage img=ImageIO.read(new File(fileName));		
+		
+		this.height = img.getHeight();
+		this.width = img.getWidth();
+		ImageIO.write(img, "jpg", baos);
+		this.bytearray = baos.toByteArray();
+	}
+	
 	
 	public static void main(String[] args) throws IOException{
 

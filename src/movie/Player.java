@@ -34,10 +34,15 @@ public class Player {
 	}
 	
 	
+	public void buildBufferedImages(Frame[] f){
+		images = new BufferedImage[f.length];
+	}
+	
 	public static void main(String[] args){
 		Player p = new Player();
-		p.openMovie("/home/gaddis/git/ec504project/data/movies/movie1.ser");
+		p.openMovie("/home/gaddis/git/ec504project/data/sequence/movies/movie1.ser");
 		System.out.println("This movie has " + p.m.frames.length + " frames");
+		Frame[] f = p.m.frames;
 	}
 	
 }

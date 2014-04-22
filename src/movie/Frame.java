@@ -12,7 +12,6 @@ public class Frame implements java.io.Serializable{
 
 	ByteArrayOutputStream baos;
 	byte[] bytearray;
-	byte[] ba64;
 	int height,width;
 	
 	/*

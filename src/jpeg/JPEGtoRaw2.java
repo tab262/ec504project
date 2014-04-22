@@ -23,13 +23,13 @@ import javax.imageio.ImageWriter;
 import javax.imageio.stream.ImageOutputStream;
 
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
- 
+import movie.Movie;
  
 public class JPEGtoRaw2 {
 	 
 	// list of JPEGS that will serve as the frames
 	public static List<String> frames = new ArrayList<String>(); 
-	public static Movie m = new Movie("movieTest");
+	//public static Movie m = new Movie("movieTest");
 	public static String dirName = System.getProperty("user.dir");
 	public static double size = 0; 
 	
@@ -61,15 +61,15 @@ public class JPEGtoRaw2 {
 			generalCompression(s);
 		}
 		 
-		m.save(); 
+		//m.save(); 
 		System.out.printf("Size of all original images is %f KB \n", size); 
-		System.out.printf("Size of the movie file is %f KB \n", m.getSize()); 
+		//System.out.printf("Size of the movie file is %f KB \n", m.getSize()); 
 		
 	}
 	
 	public static void testCompression(String fileName) throws IOException{
 		File imageFile = new File(fileName);
-		File compressedImageFile = new File(fileName + "_out");
+		File compressedImageFile = new File("out_"+fileName);
 
 		InputStream is = new FileInputStream(imageFile);
 		OutputStream os = new FileOutputStream(compressedImageFile);
@@ -129,7 +129,7 @@ public class JPEGtoRaw2 {
 		
 		ImageIO.write(img, "jpg", baos);
 		 
-		m.addFrame(baos);
+		//m.addFrame(baos);
 		
 		
 //		System.out.println("Number of Bytes In image: " + baos.size());

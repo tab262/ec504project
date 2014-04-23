@@ -34,10 +34,10 @@ public class Frame implements java.io.Serializable{
 		
 		
 		File imageFile = new File(fileName);
-		File compressedImageFile = new File(fileName+"_out.jpg");
+//		File compressedImageFile = new File(fileName+"_out.jpg");		//comment out?
 		
 		InputStream is = new FileInputStream(imageFile);
-		OutputStream os = new FileOutputStream(compressedImageFile);
+//		OutputStream os = new FileOutputStream(compressedImageFile);	//comment out?
 		
 		// create a BufferedImage as the result of decoding the supplied InputStream
 		BufferedImage image = ImageIO.read(is);
@@ -50,8 +50,8 @@ public class Frame implements java.io.Serializable{
 
 		
 		ImageWriter writer = (ImageWriter) writers.next();
-		ImageOutputStream ios = ImageIO.createImageOutputStream(os);
-		writer.setOutput(ios);
+//		ImageOutputStream ios = ImageIO.createImageOutputStream(os);		//comment out?
+//		writer.setOutput(ios);											//comment out? 
 				
 
 		ImageWriteParam param = writer.getDefaultWriteParam();
@@ -80,8 +80,8 @@ public class Frame implements java.io.Serializable{
 		
 		// close all streams
 		is.close();
-		os.close();
-		ios.close();
+//		os.close();			//comment out?
+//		ios.close();		// comment out? 
 		writer.dispose();
 		
 	}

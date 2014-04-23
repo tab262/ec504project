@@ -111,12 +111,13 @@ public class Player {
 	
 	public static void main(String[] args) throws IOException, InterruptedException{
 		Player p = new Player();
-		p.openMovie("/home/gaddis/git/ec504project/data/movies/movie5.ser");
+		String dirName = System.getProperty("user.dir") + "/data/" + "movies/"; 
+		p.openMovie(dirName + "movieNew.ser");
 		System.out.println("This movie has " + p.m.frames.length + " frames");
 		Frame[] f = p.m.frames;
 		p.buildBufferedImages(p.m.frames);
-		//p.playMovie();
-		p.playMovie2();
+		p.playMovie();
+		// p.playMovie2();
 	}
 	
 }

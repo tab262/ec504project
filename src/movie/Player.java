@@ -1,6 +1,7 @@
 package movie;
 
 import java.awt.FlowLayout;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
@@ -57,7 +58,7 @@ public class Player {
 		ImageIcon icon;
 		JFrame frame = new JFrame();
 		frame.setLayout(new FlowLayout());
-		frame.setSize(height,width);
+		frame.setSize(400,400);
 		JLabel lbl = new JLabel();
 		lbl.setIcon(this.icons[0]);
 		frame.add(lbl);
@@ -66,7 +67,10 @@ public class Player {
 		int i = 0;
 		while(i < 100){
 			icon = (this.icons[i%m.frames.length]);
-			Thread.sleep(250);
+			Image img = icon.getImage();
+			Image newimg = img.getScaledInstance(800, 800,  java.awt.Image.SCALE_SMOOTH);  
+			icon = new ImageIcon(newimg); 
+			Thread.sleep(100);
 			lbl.setIcon(icon);
 			frame.add(lbl);
 			i++;

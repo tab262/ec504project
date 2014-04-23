@@ -3,6 +3,8 @@ ec504project
 
 ANDROID: https://github.com/zerohhy/android_jpegs_to_mpeg
 
+Compression: https://github.com/zerohhy/jpegCompression
+
 VideoEncoder: Group 13
 
 To run, open project in Eclipse, go to src > jpegCompression > CompressionJpeg.java and run.

@@ -1,6 +1,7 @@
 package movie;
 
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -70,13 +71,12 @@ public class Frame implements java.io.Serializable{
 		// this.baos = byteArrayOut; 
 		this.bytearray = byteArrayOut.toByteArray();
 		
-		// convert IIOImage tempImg into BufferedImage
-//		PlanarImage pImg = (PlanarImage) tempImg.getRenderedImage(); 
-//		BufferedImage bImg = pImg.getAsBufferedImage(); 
-//		
-//		// get height and width from BufferedImage
-//		this.height = bImg.getHeight();
-//		this.width = bImg.getWidth();
+		// convert IIOImage tempImg into RenderedImage
+		RenderedImage rImg = tempImg.getRenderedImage(); 
+
+		// get height and width from RenderedImage
+		this.height = rImg.getHeight();
+		this.width = rImg.getWidth();
 		
 		// close all streams
 		is.close();

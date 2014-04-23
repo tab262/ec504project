@@ -3,9 +3,20 @@ package movie;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Iterator;
 
+import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
+import javax.imageio.metadata.IIOMetadata;
+import javax.imageio.stream.ImageOutputStream;
+import javax.media.jai.PlanarImage;
 
 
 public class Frame implements java.io.Serializable{
@@ -14,7 +25,7 @@ public class Frame implements java.io.Serializable{
 	byte[] bytearray;
 	int height,width;
 	
-	/*
+	
 	public Frame(String fileName,float quality) throws IOException{
 		//String dirName = System.getProperty("user.dir");
 		//String fName = dirName + "/data/" + fileName;
@@ -48,10 +59,25 @@ public class Frame implements java.io.Serializable{
 		param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
 		param.setCompressionQuality(quality);
 		
+		IIOImage tempImg = new IIOImage(image, null, null); 
+		ByteArrayOutputStream byteArrayOut = new ByteArrayOutputStream();
+		writer.setOutput(ImageIO.createImageOutputStream(byteArrayOut));
 		// appends a complete image stream containing a single image and
 		//associated stream and image metadata and thumbnails to the output
-		writer.write(null, new IIOImage(image, null, null), param);
-
+		writer.write(null, tempImg, param);
+		
+		// get byte[] from byteArrayOut
+		this.baos = byteArrayOut; 
+		this.bytearray = baos.toByteArray();
+		
+		// convert IIOImage tempImg into BufferedImage
+		PlanarImage pImg = (PlanarImage) tempImg.getRenderedImage(); 
+		BufferedImage bImg = pImg.getAsBufferedImage(); 
+		
+		// get height and width from BufferedImage
+		this.height = bImg.getHeight();
+		this.width = bImg.getWidth();
+		
 		// close all streams
 		is.close();
 		os.close();
@@ -59,18 +85,18 @@ public class Frame implements java.io.Serializable{
 		writer.dispose();
 		
 	}
-	*/
+
 	
 	
-	public Frame(String fileName,float quality) throws IOException{
-		System.out.println(fileName);
-		ByteArrayOutputStream baos=new ByteArrayOutputStream(1000);
-		BufferedImage img=ImageIO.read(new File(fileName));		
-		this.height = img.getHeight();
-		this.width = img.getWidth();
-		ImageIO.write(img, "jpg", baos);
-		this.bytearray = baos.toByteArray();
-	}
+//	public Frame(String fileName,float quality) throws IOException{
+//		System.out.println(fileName);
+//		ByteArrayOutputStream baos=new ByteArrayOutputStream(1000);
+//		BufferedImage img=ImageIO.read(new File(fileName));		
+//		this.height = img.getHeight();
+//		this.width = img.getWidth();
+//		ImageIO.write(img, "jpg", baos);
+//		this.bytearray = baos.toByteArray();
+//	}
 	
 	
 	public static void main(String[] args) throws IOException{

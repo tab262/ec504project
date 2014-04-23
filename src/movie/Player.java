@@ -59,11 +59,9 @@ public class Player {
 			width = (int)(width * .99);
 		}
 		System.out.println("h:" + height + " w:" + width);
-		images = new BufferedImage[f.length];
 		icons = new ImageIcon[f.length];
 		for(int i = 0; i < f.length;i++){
-			images[i] = ImageIO.read(new ByteArrayInputStream(f[i].bytearray));
-			icons[i] = new ImageIcon(images[i]);
+			icons[i] = new ImageIcon(ImageIO.read(new ByteArrayInputStream(f[i].bytearray)));
 			icons[i] = new ImageIcon(icons[i].getImage().getScaledInstance(width,height,java.awt.Image.SCALE_SMOOTH));
 		}
 		//icons[i] = new ImageIcon(images[i]);

@@ -48,7 +48,7 @@ public class Player {
 		int height = m.frames[0].height;
 		int width = m.frames[0].width;
 		System.out.println("h:" + height + " w:" + width);
-		while(height > 600 || width > 600){
+		while(height > 550 || width > 550){
 			height = (int)(height * .99);
 			width = (int)(width * .99);
 		}
@@ -91,7 +91,7 @@ public class Player {
 	
 	public static void main(String[] args) throws IOException, InterruptedException{
 		Player p = new Player();
-		p.openMovie("/home/gaddis/git/ec504project/data/sequence/movies/movie1.ser");
+		p.openMovie("/home/gaddis/git/ec504project/data/movies/movie3.ser");
 		System.out.println("This movie has " + p.m.frames.length + " frames");
 		Frame[] f = p.m.frames;
 		p.buildBufferedImages(p.m.frames);

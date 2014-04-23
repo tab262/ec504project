@@ -28,7 +28,7 @@ public class Movie  implements java.io.Serializable{
 		try
 	      {
 	         FileOutputStream fileOut =
-	         new FileOutputStream(dirName + "/movies/movie1.ser");
+	         new FileOutputStream(dirName + "/movies/" + fileName+ ".ser");
 	         ObjectOutputStream out = new ObjectOutputStream(fileOut);
 	         out.writeObject(this);
 	         out.close();
@@ -41,19 +41,19 @@ public class Movie  implements java.io.Serializable{
 	}
 	
 	public static void main(String[] args) throws IOException{
-		String dirName = System.getProperty("user.dir") + "/data/sequence/";
+		String dirName = System.getProperty("user.dir") + "/data/";//sequence/";
 		System.out.println(dirName);
-		String files[] = new String[8];
-		files[0] = dirName + "1.jpg";
-		files[1] = dirName + "2.jpg";
-		files[2] = dirName + "3.jpg";
-		files[3] = dirName + "4.jpg";
-		files[4] = dirName + "5.jpg";
-		files[5] = dirName + "6.jpg";
-		files[6] = dirName + "7.jpg";
-		files[7] = dirName + "8.jpg";
+		String files[] = new String[6];
+		files[0] = dirName + "one.jpg";
+		files[1] = dirName + "two.jpg";
+		files[2] = dirName + "three.jpg";
+		files[3] = dirName + "four.jpg";
+		files[4] = dirName + "five.jpg";
+		files[5] = dirName + "six.jpg";
+		//files[6] = dirName + "7.jpg";
+		//files[7] = dirName + "8.jpg";
 		Movie m = new Movie(files,.5f);
-		m.saveMovie("movie2", dirName);
+		m.saveMovie("movie3", dirName);
 		
 		
 		

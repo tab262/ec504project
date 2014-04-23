@@ -21,7 +21,7 @@ import javax.media.jai.PlanarImage;
 
 public class Frame implements java.io.Serializable{
 
-	ByteArrayOutputStream baos;
+	// ByteArrayOutputStream baos;
 	byte[] bytearray;
 	int height,width;
 	
@@ -67,16 +67,16 @@ public class Frame implements java.io.Serializable{
 		writer.write(null, tempImg, param);
 		
 		// get byte[] from byteArrayOut
-		this.baos = byteArrayOut; 
-		this.bytearray = baos.toByteArray();
+		// this.baos = byteArrayOut; 
+		this.bytearray = byteArrayOut.toByteArray();
 		
 		// convert IIOImage tempImg into BufferedImage
-		PlanarImage pImg = (PlanarImage) tempImg.getRenderedImage(); 
-		BufferedImage bImg = pImg.getAsBufferedImage(); 
-		
-		// get height and width from BufferedImage
-		this.height = bImg.getHeight();
-		this.width = bImg.getWidth();
+//		PlanarImage pImg = (PlanarImage) tempImg.getRenderedImage(); 
+//		BufferedImage bImg = pImg.getAsBufferedImage(); 
+//		
+//		// get height and width from BufferedImage
+//		this.height = bImg.getHeight();
+//		this.width = bImg.getWidth();
 		
 		// close all streams
 		is.close();

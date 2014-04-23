@@ -52,8 +52,8 @@ public class Movie  implements java.io.Serializable{
 		files[5] = dirName + "six.jpg";
 		//files[6] = dirName + "7.jpg";
 		//files[7] = dirName + "8.jpg";
-		Movie m = new Movie(files,.5f);
-		m.saveMovie("movie3", dirName);
+		Movie m = new Movie(files,.2f);
+		m.saveMovie("movie5", dirName);
 		
 		
 		

@@ -17,7 +17,7 @@ import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
 import javax.imageio.metadata.IIOMetadata;
 import javax.imageio.stream.ImageOutputStream;
-import javax.media.jai.PlanarImage;
+//import javax.media.jai.PlanarImage;
 
 
 public class Frame implements java.io.Serializable{

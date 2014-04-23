@@ -1,6 +1,7 @@
 package movie;
 
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -12,6 +13,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class Player {
 
@@ -41,6 +43,10 @@ public class Player {
 	         c.printStackTrace();
 	         return;
 	      }
+	}
+	
+	public void paint(Graphics g){
+		g.drawImage(images[0], 0, 0, 0, 0, 0, 0, 0, 0, null, null);
 	}
 	
 	
@@ -79,9 +85,10 @@ public class Player {
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		int i = 0;
+		//ImageIcon next = this.icons[1];
 		while(i < 1000){
 			icon = (this.icons[i%m.frames.length]); 
-			Thread.sleep(100);
+			Thread.sleep(200);
 			lbl.setIcon(icon);
 			frame.add(lbl);
 			i++;
@@ -89,13 +96,29 @@ public class Player {
 		
 	}
 	
+	public void playMovie2(){
+		JFrame frame = new JFrame("Player 2");
+		frame.setSize(600,600);
+		frame.setLayout(new FlowLayout());
+		JPanel panel = new JPanel();
+		panel.setLayout(new FlowLayout());
+		
+		frame.add(panel);
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Image img1 = images[0];
+		panel.getGraphics().drawImage(img1, 0, 0, panel);
+	}
+	
+	
 	public static void main(String[] args) throws IOException, InterruptedException{
 		Player p = new Player();
-		p.openMovie("/home/gaddis/git/ec504project/data/movies/movie3.ser");
+		p.openMovie("/home/gaddis/git/ec504project/data/movies/movie5.ser");
 		System.out.println("This movie has " + p.m.frames.length + " frames");
 		Frame[] f = p.m.frames;
 		p.buildBufferedImages(p.m.frames);
-		p.playMovie();
+		//p.playMovie();
+		p.playMovie2();
 	}
 	
 }

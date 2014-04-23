@@ -19,6 +19,8 @@ public class Player {
 	Movie m;
 	BufferedImage images[];
 	ImageIcon icons[];
+	Image set[];
+	
 	public void openMovie(String fileName){
 		this.m = null;
 
@@ -48,7 +50,12 @@ public class Player {
 		for(int i = 0; i < f.length;i++){
 			images[i] = ImageIO.read(new ByteArrayInputStream(f[i].bytearray));
 			icons[i] = new ImageIcon(images[i]);
+			icons[i] = new ImageIcon(icons[i].getImage().getScaledInstance(500, 500,java.awt.Image.SCALE_SMOOTH));
 		}
+		//icons[i] = new ImageIcon(images[i]);
+		//set[i] = icons[i].getImage().getScaledInstance(500, 500,java.awt.Image.SCALE_SMOOTH);
+		//icons[i] = new ImageIcon(set[i]);
+		
 	}
 	
 	public void playMovie() throws InterruptedException{
@@ -58,18 +65,15 @@ public class Player {
 		ImageIcon icon;
 		JFrame frame = new JFrame();
 		frame.setLayout(new FlowLayout());
-		frame.setSize(400,400);
+		frame.setSize(600,600);
 		JLabel lbl = new JLabel();
 		lbl.setIcon(this.icons[0]);
 		frame.add(lbl);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		int i = 0;
-		while(i < 100){
-			icon = (this.icons[i%m.frames.length]);
-			Image img = icon.getImage();
-			Image newimg = img.getScaledInstance(800, 800,  java.awt.Image.SCALE_SMOOTH);  
-			icon = new ImageIcon(newimg); 
+		while(i < 3000){
+			icon = (this.icons[i%m.frames.length]); 
 			Thread.sleep(100);
 			lbl.setIcon(icon);
 			frame.add(lbl);

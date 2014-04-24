@@ -1,14 +1,13 @@
-
 package gui;
 
 import java.io.File;
 import javax.swing.*;
 import javax.swing.filechooser.*;
 
-/* ImageFilter.java is used by ImagePickerGUI.java. */
-public class ImageFilter extends FileFilter {
 
-    //Accept all directories and all jpeg/jpg files.
+public class VideoFilter extends FileFilter {
+
+    //Accept all directories and all ser files.
     public boolean accept(File f) {
         if (f.isDirectory()) {
             return true;
@@ -17,9 +16,8 @@ public class ImageFilter extends FileFilter {
 
         String extension = Utils.getExtension(f);
         if (extension != null) {
-            if (extension.equals(Utils.jpeg) ||
-                extension.equals(Utils.jpg)) {
-                    return true;
+            if (extension.equals(Utils.ser)) {
+                return true;
             } else {
                 return false;
             }
@@ -30,6 +28,6 @@ public class ImageFilter extends FileFilter {
 
     //The description of this filter
     public String getDescription() {
-        return "Just Images";
+        return "Just Videos";
     }
 }

@@ -45,7 +45,8 @@ public class Main {
 		float quality = 0.6f;
 
 		Movie m = new Movie(fileNames,quality);
-		m.saveMovie("example","/Users/g/git/ec504project/data/movies/");
+		String dirName = System.getProperty("user.dir") + "/data/";
+		m.saveMovie("example",dirName);
 	}
 
 	public static void fileMode(String[] args) throws IOException{
@@ -64,8 +65,11 @@ public class Main {
 		}
 		System.out.println("Making movie...");
 		float quality = 0.6f;
+		
+		
 		Movie m = new Movie(fileNames,quality);
-		m.saveMovie("example","/Users/g/git/ec504project/data/");
+		String dirName = System.getProperty("user.dir") + "/data/";
+		m.saveMovie("example",dirName);
 
 	}
 	/*

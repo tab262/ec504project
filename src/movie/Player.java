@@ -112,7 +112,7 @@ public class Player {
 	public static void main(String[] args) throws IOException, InterruptedException{
 		Player p = new Player();
 		String dirName = System.getProperty("user.dir") + "/data/" + "movies/"; 
-		p.openMovie(dirName + "movieNew.ser");
+		p.openMovie(dirName + "example.ser");
 		System.out.println("This movie has " + p.m.frames.length + " frames");
 		Frame[] f = p.m.frames;
 		p.buildBufferedImages(p.m.frames);

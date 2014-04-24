@@ -10,12 +10,13 @@ public class Main {
 
 	public static void printUsageMessage(){
 		System.out.println("Usage:");
+		System.out.println("ptm -g (for GUI)");
 		System.out.println("ptm -d directory");
 		System.out.println("ptm -f file1,file2,...");
+		System.exit(0);
 	}
 	
 	public static void directoryMode(String directory) throws IOException{
-
 		System.out.println("Directory Mode:" + directory);
 		File folder = new File(directory);
 		File[] listOfFiles = folder.listFiles();
@@ -47,14 +48,16 @@ public class Main {
 		m.saveMovie("example","/Users/g/git/ec504project/data/movies/");
 	}
 
-		public static void fileMode(String[] args) throws IOException{
-			System.out.println("File Mode: ");
-
-			int i;
-			String fileNames[] = new String[args.length - 1];
-			for(i = 1; i < args.length;i++){
-				fileNames[i-1] = args[i]; 
-			}
+	public static void fileMode(String[] args) throws IOException{
+		if(args.length < 2){
+			printUsageMessage();
+		}
+		System.out.println("File Mode: ");
+		int i;
+		String fileNames[] = new String[args.length - 1];
+		for(i = 1; i < args.length;i++){
+			fileNames[i-1] = args[i]; 
+		}
 
 		for(i = 0 ; i < fileNames.length;i++){
 			System.out.println(fileNames[i]);
@@ -62,9 +65,9 @@ public class Main {
 		System.out.println("Making movie...");
 		float quality = 0.6f;
 		Movie m = new Movie(fileNames,quality);
-		m.saveMovie("example","/Users/g/git/ec504project/data/movies/");
+		m.saveMovie("example","/Users/g/git/ec504project/data/");
 
-		}
+	}
 	/*
 	public static void directoryMode(String directory){
 		System.out.println("Directory Mode:" + directory);
@@ -99,22 +102,31 @@ public class Main {
 	}
 	*/
 	public static void guiMode(){
-		
+		System.out.println("Launching GUI");
 	}
 	
 
 	
 	public static void main(String[] args) throws IOException{
 		
-		if(args.length < 2){
+		if(args.length < 1){
 			printUsageMessage();
 		}else{			
 			if(args[0].equals("-d")){
-				System.out.println(args[0]);
-				directoryMode(args[1]);
+				if(args.length > 1 && args.length <=2){
+					System.out.println(args[0]);
+					directoryMode(args[1]); //passes directory path
+				}else{
+					printUsageMessage();
+				}
 			}else if(args[0].equals("-f")){
-				System.out.println( args[0]);
-				fileMode(args);
+				System.out.println(args[0]);
+				fileMode(args); //passes set of images
+			}else if(args[0].equals("-g")){
+				System.out.println(args[0]);
+				guiMode();
+			}else{
+				printUsageMessage();
 			}
 		}
 		

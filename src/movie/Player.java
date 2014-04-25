@@ -86,7 +86,7 @@ public class Player {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		int i = 3;
 		//ImageIcon next = this.icons[1];
-//		while(i < 1000){
+		while(i < 1000){
 			icon = (this.icons[i%m.frames.length]); 
 			Thread.sleep(30);
 //			frame.remove(lbl);
@@ -102,7 +102,7 @@ public class Player {
 			frame.validate();
 			frame.repaint();
 			i++;
-//		}
+		}
 
 	}
 	

@@ -139,6 +139,7 @@ public class ImagePickerGUI extends JPanel implements ActionListener {
 					p.playMovie3(lbl,frame,i);
 				}
 				
+				
 //				p.start();
 //				System.out.println("This movie is playing");
 //				int i=0;
@@ -147,7 +148,6 @@ public class ImagePickerGUI extends JPanel implements ActionListener {
 //					i=i+1;
 //					System.out.println("Robbie end loop");
 //				}
-				System.out.println("Robbie end while!?");
 				
 				System.out.println("This movie has played");
 			} catch (IOException e1) {

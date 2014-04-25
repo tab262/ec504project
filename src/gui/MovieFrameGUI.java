@@ -7,6 +7,7 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JProgressBar;
 import javax.swing.JSlider;
 
 import java.awt.BorderLayout;
@@ -14,11 +15,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class MovieFrameGUI {
-    
-    //Note: Typically the main method will be in a
-    //separate class. As this is a simple one class
-    //example it's all in the one class.
-    public static void main(String[] args) {
+	
+	public float quality = .5f;
+
+	public static void main(String[] args) {
         
         new MovieFrameGUI();
     }
@@ -35,9 +35,20 @@ public class MovieFrameGUI {
         //This will center the JFrame in the middle of the screen
         guiFrame.setLocationRelativeTo(null);
         
+        JPanel quality = new JPanel();
+        JLabel qualityLbl = new JLabel("Quality (0% - 100%)");
+        quality.add(qualityLbl);
         JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 50, 25); 
         slider.setName("Video Quality");
-        guiFrame.add(slider, BorderLayout.SOUTH);
+        quality.add(slider);
+        guiFrame.add(quality, BorderLayout.SOUTH);
+        
+        JPanel progress = new JPanel();
+        JLabel progLbl = new JLabel("Progress");
+        progress.add(progLbl);
+        JProgressBar progressBar = new JProgressBar();
+        progress.add(progressBar);
+        guiFrame.add(progress, BorderLayout.EAST);
         
         //make sure the JFrame is visible
         guiFrame.setVisible(true);

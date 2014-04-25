@@ -28,12 +28,12 @@ public class Movie  implements java.io.Serializable{
 		try
 	      {
 	         FileOutputStream fileOut =
-	         new FileOutputStream(dirName + "/movies/" + fileName+ ".ser");
+	         new FileOutputStream(dirName + "/" + fileName+ ".ser");
 	         ObjectOutputStream out = new ObjectOutputStream(fileOut);
 	         out.writeObject(this);
 	         out.close();
 	         fileOut.close();
-	         System.out.printf("Serialized data is saved in " + dirName + "movies/");
+	         System.out.printf("Serialized data is saved in " + dirName);
 	      }catch(IOException i)
 	      {
 	          i.printStackTrace();

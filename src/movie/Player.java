@@ -93,8 +93,8 @@ public class Player {
 			lbl.setIcon(icon);
 			frame.add(lbl);
 			
-			icon = (this.icons[4%m.frames.length]); 
-			Thread.sleep(30);
+			icon = (this.icons[i%m.frames.length]); 
+			Thread.sleep(1000);
 //			frame.remove(lbl);
 			lbl.setIcon(icon);
 			frame.add(lbl);

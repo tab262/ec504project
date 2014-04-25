@@ -89,7 +89,7 @@ public class Main {
 
 		System.out.println("Making movie...");
 		float quality = 0.6f;
-		makeMovie(fileNames,quality);
+		makeMovie(fileNames,quality,newFileName);
 	}
 
 	public static void fileMode(String[] args) throws IOException{
@@ -130,7 +130,7 @@ public class Main {
 		System.out.println("Making movie with filename '" + newFileName + "'...");
 		float quality = 0.6f;
 		
-		//makeMovie(set,quality);
+		makeMovie(set,quality,newFileName);
 		
 
 	}
@@ -149,13 +149,13 @@ public class Main {
 		}
 	}
 	
-	public static void makeMovie(String[] fileNames, float quality) throws IOException{
+	public static void makeMovie(String[] fileNames, float quality, String videoFileName) throws IOException{
 		Movie m = new Movie(fileNames,quality);
-		String dirName = System.getProperty("user.dir") + "/data/";
+		String dirName = System.getProperty("user.dir");
 		m.saveMovie("example",dirName);
 	}
 	
-	public static void main(String[] args) throws IOException{
+	public static void main(String[] args) throws IOException, InterruptedException{
 		
 		if(args.length < 2){
 			printUsageMessage();

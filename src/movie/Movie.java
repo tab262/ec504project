@@ -33,7 +33,7 @@ public class Movie  implements java.io.Serializable{
 	         out.writeObject(this);
 	         out.close();
 	         fileOut.close();
-	         System.out.printf("Serialized data is saved in " + dirName);
+	         System.out.printf("Movie is saved as " + dirName  + "/"  + fileName + ".ser");
 	      }catch(IOException i)
 	      {
 	          i.printStackTrace();

@@ -152,7 +152,7 @@ public class Main {
 	public static void makeMovie(String[] fileNames, float quality, String videoFileName) throws IOException{
 		Movie m = new Movie(fileNames,quality);
 		String dirName = System.getProperty("user.dir");
-		m.saveMovie("example",dirName);
+		m.saveMovie(videoFileName,dirName);
 	}
 	
 	public static void main(String[] args) throws IOException, InterruptedException{

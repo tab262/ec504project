@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -57,12 +58,12 @@ public class Main {
 		if(args.length < 2){
 			printUsageMessage();
 		}
-		System.out.println("File Mode: ");
+		System.out.println("Files...");
 		int i;
-		String fileNames[] = new String[args.length - 1];
+		ArrayList<String> fileNames = new ArrayList<String>();
 		for(i = 1; i < args.length;i++){
 			if(args[i].endsWith("jpeg") || args[i].endsWith("jpg")){
-				fileNames[i-1] = args[i]; 
+				fileNames.add(args[i]); 
 			}else if(args[i].equals("-o")){
 				if((i+1) < args.length){
 					newFileName = args[i+1];
@@ -72,10 +73,12 @@ public class Main {
 				throw new IllegalArgumentException("'"+args[i] + "' is not jpg/jpeg. Files must be jpg/jpeg:");
 			}
 		}
-
-		for(i = 0 ; i < fileNames.length;i++){
-			System.out.println(fileNames[i]);
+		
+		String[] set = fileNames.toArray(new String[0]); 
+		for(i = 0 ; i < set.length;i++){
+			System.out.println(set[i]);
 		}
+		System.out.println();
 		
 		if(newFileName == null){
 			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -109,13 +112,11 @@ public class Main {
 		}else{			
 			if(args[0].equals("-d")){
 				if(args.length > 1 && args.length <=2){
-					System.out.println(args[0]);
 					directoryMode(args[1]); //passes directory path
 				}else{
 					printUsageMessage();
 				}
 			}else if(args[0].equals("-f")){
-				System.out.println(args[0]);
 				fileMode(args); //passes set of images
 			}else if(args[0].equals("-g")){
 				System.out.println(args[0]);

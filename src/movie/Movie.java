@@ -11,7 +11,7 @@ import java.util.List;
 // methods for adding frames to a movie and saving 
 public class Movie  implements java.io.Serializable{
 
-	Frame frames[];
+	public Frame frames[];
 	float quality;
 	
 	public Movie(String[] files, float quality) throws IOException{

@@ -15,7 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Player {
+public class Player2 {
 
 	float timePerFrame;
 	public Movie m;

@@ -16,6 +16,7 @@ public class Main {
 		System.out.println("ptm -g (for GUI)");
 		System.out.println("ptm -d [source directory] -o [output file name]");
 		System.out.println("ptm -f [file1,file2,...,filen] -o [output file name]");
+		System.out.println("ptm -p [movie file]");
 		System.exit(0);
 	}
 	
@@ -137,6 +138,10 @@ public class Main {
 		gui.ImagePickerGUI.main(null);
 	}
 	
+	public static void playMode(String[] args){
+		
+	}
+	
 	public static void makeMovie(String[] fileNames, float quality) throws IOException{
 		Movie m = new Movie(fileNames,quality);
 		String dirName = System.getProperty("user.dir") + "/data/";
@@ -157,8 +162,9 @@ public class Main {
 			}else if(args[0].equals("-f")){
 				fileMode(args); //passes set of images
 			}else if(args[0].equals("-g")){
-				System.out.println(args[0]);
 				guiMode();
+			}else if(args[0] == "-p"){
+				//playMode(args);
 			}else{
 				printUsageMessage();
 			}

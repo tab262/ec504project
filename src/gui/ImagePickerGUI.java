@@ -1,5 +1,6 @@
 package gui;
 
+//The following imports include awt (Abstract Window Toolkit), swing (GUI widget toolkit), among others...
 import java.io.*;
 import java.util.ArrayList;
 import java.awt.*;
@@ -8,6 +9,9 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.filechooser.*;
 
+import movie.Movie;
+import movie.Player;
+
 
 //ImagePicker GUI Class - Pick image files, and play back in video format.
 public class ImagePickerGUI extends JPanel implements ActionListener {
@@ -15,12 +19,100 @@ public class ImagePickerGUI extends JPanel implements ActionListener {
 	//Global Variables
     static private String newline = "\n";
     private JTextArea log;
-    private JFileChooser fc;
+    private JFileChooser fc_mov; 	//file chooser for movie file
+    private JFileChooser fc;		//file chooser for image files
     private ArrayList<String> list = new ArrayList<String>();
+    private String selectedMovie = "";
+    
+    
+    
+    //Set up the action listener for selecting the movie
+    public ActionListener movSelecting = new ActionListener()
+    {
+    	public void actionPerformed(ActionEvent e) {
+        	System.out.println("Stuff is happening! MovButton Pressed.");
+        	if (fc_mov == null) {
+        		fc_mov = new JFileChooser();
+        	
+    	    //Implement the Custom Filter
+        	fc_mov.setAcceptAllFileFilterUsed(false);
+        	fc_mov.setFileFilter(new VideoFilter());
+        	fc_mov.setMultiSelectionEnabled(false);
+        	
+        	}
+        	
+            //Show it.
+            int returnVal = fc_mov.showDialog(ImagePickerGUI.this,
+                                          "Attach");
+            //Process the results.
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File file = fc_mov.getSelectedFile();
+                selectedMovie = file.getAbsolutePath();
+                
+                log.append("Selected Movie: " + selectedMovie + newline);
+            } else {
+                log.append("Selection cancelled by user." + newline);
+                log.append("Selected Movie: " + selectedMovie + newline);
+            }
+            log.setCaretPosition(log.getDocument().getLength());
+            
+            //Reset the file chooser for the next time it's shown.
+            fc_mov.setSelectedFile(null);
+    	
+    	}
+    };
+    
+    public ActionListener movCreating = new ActionListener()
+    {
+    	public void actionPerformed(ActionEvent e) {
+    		//Input dialog with a text field
+            String input =  JOptionPane.showInputDialog(this 
+                    ,"Enter in some text:");
+            final JOptionPane optionPane = new JOptionPane(
+                    "The only way to close this dialog is by\n"
+                    + "pressing one of the following buttons.\n"
+                    + "Do you understand?",
+                    JOptionPane.QUESTION_MESSAGE,
+                    JOptionPane.YES_NO_OPTION);
+            
+    		String dirName = System.getProperty("user.dir") + "/data/";
+    		
+    		String[] myList = new String[list.size()];
+    		myList = list.toArray(myList);
+    		
+    		Movie m = null;
+			try {
+				m = new Movie(myList,.2f);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			
+    		m.saveMovie("Movie", dirName);
+    		log.append("Movie created by user!" + newline);
+    		System.out.println("Movie has been created by user.");
+    	}
+    };
+    
+    
+    public ActionListener movPlaying = new ActionListener()
+    {
+    	public void actionPerformed(ActionEvent e) {
+    		
+    		log.append("A Movie is being played by user!" + newline);
+    		System.out.println("A Movie has been played by user.");
+    		
+    		Player p = new Player();
+			p.openMovie(selectedMovie);
+    	}
+    };
 
     public ImagePickerGUI() {
+    	
+    	
         super(new BorderLayout());
-
+        this.setSize(new Dimension(1024, 1768));
         //Create the log first - Action Listener refers to this.
         log = new JTextArea(800,800);
         log.setMargin(new Insets(5,5,5,5));
@@ -28,51 +120,31 @@ public class ImagePickerGUI extends JPanel implements ActionListener {
         JScrollPane logScrollPane = new JScrollPane(log);
 
         //Add All Buttons and Action Listeners
-        JButton sendButton = new JButton("Attach Images from Files or Directory");
+        JButton sendButton = new JButton("Attach Images from Files or Directory (.jpg/.jpeg)");
         sendButton.addActionListener(this);
         
-        JButton playButton = new JButton("Select a movie file to play (.ser)");
-        playButton.addActionListener(new ActionListener() {
-        @Override
-		public void actionPerformed(ActionEvent e) {
-        	System.out.println("Stuff is happening! MovButton Pressed.");
-        	if (fc == null) {
-                fc = new JFileChooser();
-    	    //Implement the Custom Filter
-                fc.setAcceptAllFileFilterUsed(false);
-                fc.setFileFilter(new VideoFilter());
-                fc.setMultiSelectionEnabled(false);
-            //Show it.
-            int returnVal = fc.showDialog(ImagePickerGUI.this,
-                                          "Attach");
-            //Process the results.
-            if (returnVal == JFileChooser.APPROVE_OPTION) {
-                File[] file = fc.getSelectedFiles();
-                for (int i = 0; i < file.length; i++)
-                {
-                    log.append("Attaching file: " + file[i].getAbsolutePath()
-                            + "." + newline);
-                    list.add(file[i].getAbsolutePath());
-                }
-                log.append("Files so far: " + list.toString() + newline);
-            } else {
-                log.append("Attachment cancelled by user." + newline);
-                log.append("Files so far: " + list.toString() + newline);
-            }
-            log.setCaretPosition(log.getDocument().getLength());
-            
-            //Reset the file chooser for the next time it's shown.
-            fc.setSelectedFile(null);
-		}
-        }});
+        JButton pickMovButton = new JButton("Select Movie (.ser)");
+        pickMovButton.addActionListener(movSelecting);
+        pickMovButton.setPreferredSize(new Dimension (150,100));
         
-        JButton movButton = new JButton("Create Movie from Selected Images!");
+        JButton movButton = new JButton("Play Movie from Selected Images!");
+        movButton.addActionListener(movPlaying);
+        movButton.setPreferredSize(new Dimension (150,100));
+        
+        JButton createButton = new JButton("Create Movie");
+        createButton.addActionListener(movCreating);
+        createButton.setPreferredSize(new Dimension (150,100));
         
         //FORMAT THE BUTTONS
-        add(sendButton, BorderLayout.PAGE_START);
+        add(sendButton, BorderLayout.NORTH);
         add(logScrollPane, BorderLayout.CENTER);
-        add(playButton, BorderLayout.WEST);
+        add(createButton, BorderLayout.WEST);
+        add(pickMovButton, BorderLayout.EAST);
         add(movButton, BorderLayout.SOUTH);
+        
+        
+
+        
         
     }
 	@Override

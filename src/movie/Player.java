@@ -55,12 +55,11 @@ public class Player {
 		int width = m.frames[0].width;
 		System.out.println("h:" + height + " w:" + width);
 		while(height > 550 || width > 550){
-			System.out.println("Hi while loop");
+			//System.out.println("Hi while loop");
 			height = (int)(height * .99);
 			width = (int)(width * .99);
 		}
-		System.out.println("h:" + height + " w:" + width);
-		System.out.println("Hi outside of while loop");
+		//System.out.println("h:" + height + " w:" + width);
 		icons = new ImageIcon[f.length];
 		for(int i = 0; i < f.length;i++){
 			icons[i] = new ImageIcon(ImageIO.read(new ByteArrayInputStream(f[i].bytearray)));

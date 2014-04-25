@@ -95,6 +95,7 @@ public class Main {
 	public static void fileMode(String[] args) throws IOException{
 		String newFileName = null;
 		if(args.length < 2){
+			System.out.println("Two few arguments...");
 			printUsageMessage();
 		}
 		System.out.println("Files...");
@@ -146,6 +147,9 @@ public class Main {
 			p.openMovie(args[1]);
 			p.buildBufferedImages(p.m.frames);
 			p.playMovie();
+		}else{
+			System.out.println("Invalid file name (make sure to include the extension");
+			System.exit(-1);
 		}
 	}
 	
@@ -170,9 +174,10 @@ public class Main {
 				fileMode(args); //passes set of images
 			}else if(args[0].equals("-g")){
 				guiMode();
-			}else if(args[0] == "-p"){
+			}else if(args[0].equals("-p")){
 				playMode(args);
 			}else{
+				System.out.println("4");
 				printUsageMessage();
 			}
 		}

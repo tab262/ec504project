@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-
 import movie.Movie;
 
 public class Main {
@@ -41,6 +40,8 @@ public class Main {
 		}else{
 			printUsageMessage();
 		}
+		
+		// Get directory and check if valid
 		String directory = args[1];	
 		System.out.println("Directory Mode:" + directory);
 		File folder = new File(directory);
@@ -49,6 +50,8 @@ public class Main {
 			System.out.println(directory + " is not a valid directory");
 			System.exit(-1);
 		}
+		
+		
 		System.out.println("Files....");
 		File[] listOfFiles = folder.listFiles();
 		int numFiles = 0;
@@ -57,33 +60,33 @@ public class Main {
 				numFiles++;
 			}
 		}
-		
+		// check to make sure there are jpegs in the directory
 		if(numFiles == 0){
 			System.out.println("No jpegs found in this directory...");
 			System.exit(-1);
 		}
 		
+		// Assuming movie should play images in alpha order relative of their title
 		Arrays.sort(listOfFiles);
+		
+		// Extract the file names
 		String fileNames[] = new String[numFiles];
 		//http://stackoverflow.com/questions/5694385/getting-the-filenames-of-all-files-in-a-folder
 		int j = 0;
 		for (int i = 0; i < listOfFiles.length; i++) {
 			if (listOfFiles[i].isFile()) {
-		    //System.out.println("File: " + listOfFiles[i].getName());
 		     	fileNames[j++] = listOfFiles[i].getAbsolutePath();
 		    }
 		}
-		
+
+		// Print list of files
 		for(int i = 0; i < fileNames.length;i++){
 		   	System.out.println(fileNames[i]);
 		}
 
 		System.out.println("Making movie...");
 		float quality = 0.6f;
-
-		//Movie m = new Movie(fileNames,quality);
-		//String dirName = System.getProperty("user.dir") + "/data/";
-		//m.saveMovie("example",dirName);
+		makeMovie(fileNames,quality);
 	}
 
 	public static void fileMode(String[] args) throws IOException{
@@ -124,10 +127,8 @@ public class Main {
 		System.out.println("Making movie with filename '" + newFileName + "'...");
 		float quality = 0.6f;
 		
+		//makeMovie(set,quality);
 		
-		//Movie m = new Movie(fileNames,quality);
-		//String dirName = System.getProperty("user.dir") + "/data/";
-		//m.saveMovie("example",dirName);
 
 	}
 
@@ -136,7 +137,11 @@ public class Main {
 		gui.ImagePickerGUI.main(null);
 	}
 	
-
+	public static void makeMovie(String[] fileNames, float quality) throws IOException{
+		Movie m = new Movie(fileNames,quality);
+		String dirName = System.getProperty("user.dir") + "/data/";
+		m.saveMovie("example",dirName);
+	}
 	
 	public static void main(String[] args) throws IOException{
 		

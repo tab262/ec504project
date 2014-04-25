@@ -7,16 +7,18 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+
 import movie.Movie;
+import movie.Player;
 
 public class Main {
 
 	public static void printUsageMessage(){
 		System.out.println("Usage:");
-		System.out.println("ptm -g (for GUI)");
-		System.out.println("ptm -d [source directory] -o [output file name]");
-		System.out.println("ptm -f [file1,file2,...,filen] -o [output file name]");
-		System.out.println("ptm -p [movie file]");
+		System.out.println("GUI: ptm -g (for GUI)");
+		System.out.println("Encode directory set: ptm -d [source directory] -o [output file name]");
+		System.out.println("Encode list of images: ptm -f [file1,file2,...,filen] -o [output file name]");
+		System.out.println("View: ptm -p [movie file]");
 		System.exit(0);
 	}
 	
@@ -99,7 +101,7 @@ public class Main {
 		int i;
 		ArrayList<String> fileNames = new ArrayList<String>();
 		for(i = 1; i < args.length;i++){
-			if(args[i].endsWith("jpeg") || args[i].endsWith("jpg")){
+			if(args[i].endsWith(".jpeg") || args[i].endsWith(".jpg")){
 				fileNames.add(args[i]); 
 			}else if(args[i].equals("-o")){
 				if((i+1) < args.length){
@@ -138,8 +140,13 @@ public class Main {
 		gui.ImagePickerGUI.main(null);
 	}
 	
-	public static void playMode(String[] args){
-		
+	public static void playMode(String[] args) throws IOException, InterruptedException{
+		if(args[1].endsWith(".ser")){
+			Player p = new Player();
+			p.openMovie(args[1]);
+			p.buildBufferedImages(p.m.frames);
+			p.playMovie();
+		}
 	}
 	
 	public static void makeMovie(String[] fileNames, float quality) throws IOException{
@@ -150,7 +157,7 @@ public class Main {
 	
 	public static void main(String[] args) throws IOException{
 		
-		if(args.length < 1){
+		if(args.length < 2){
 			printUsageMessage();
 		}else{			
 			if(args[0].equals("-d")){
@@ -164,7 +171,7 @@ public class Main {
 			}else if(args[0].equals("-g")){
 				guiMode();
 			}else if(args[0] == "-p"){
-				//playMode(args);
+				playMode(args);
 			}else{
 				printUsageMessage();
 			}

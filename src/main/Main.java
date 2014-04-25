@@ -2,8 +2,10 @@ package main;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import gui.ImagePickerGUI;
+import java.util.Date;
 
 import movie.Movie;
 
@@ -51,6 +53,7 @@ public class Main {
 	}
 
 	public static void fileMode(String[] args) throws IOException{
+		String newFileName = null;
 		if(args.length < 2){
 			printUsageMessage();
 		}
@@ -60,6 +63,11 @@ public class Main {
 		for(i = 1; i < args.length;i++){
 			if(args[i].endsWith("jpeg") || args[i].endsWith("jpg")){
 				fileNames[i-1] = args[i]; 
+			}else if(args[i].equals("-o")){
+				if((i+1) < args.length){
+					newFileName = args[i+1];
+					i = args.length;
+				}
 			}else{
 				throw new IllegalArgumentException("'"+args[i] + "' is not jpg/jpeg. Files must be jpg/jpeg:");
 			}
@@ -68,7 +76,16 @@ public class Main {
 		for(i = 0 ; i < fileNames.length;i++){
 			System.out.println(fileNames[i]);
 		}
-		System.out.println("Making movie...");
+		
+		if(newFileName == null){
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			Date date = new Date();
+			newFileName = dateFormat.format(date);
+			newFileName = newFileName.replace(' ', '_') + "_movie";
+			System.out.println(newFileName);
+		}
+		
+		System.out.println("Making movie with filename '" + newFileName + "'...");
 		float quality = 0.6f;
 		
 		

@@ -9,6 +9,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.filechooser.*;
 
+import movie.Frame;
 import movie.Movie;
 import movie.Player;
 
@@ -100,11 +101,62 @@ public class ImagePickerGUI extends JPanel implements ActionListener {
     {
     	public void actionPerformed(ActionEvent e) {
     		
+    		String[] myList = new String[list.size()];
+    		myList = list.toArray(myList);
+    		
+    		Movie m = null;
+			try {
+				m = new Movie(myList,.2f);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
     		log.append("A Movie is being played by user!" + newline);
     		System.out.println("A Movie has been played by user.");
     		
     		Player p = new Player();
+    		
+			System.out.println("Selected Movie: " + selectedMovie + newline);
+			//String dirName = System.getProperty("user.dir") + "/data/" + "movies/"; 
+			
 			p.openMovie(selectedMovie);
+//			System.out.println("This movie has " + p.m.frames.length + " frames");
+			Frame[] f = p.m.frames;
+			
+			
+			try {
+				p.buildBufferedImages(p.m.frames);
+				
+				ImageIcon icon = null;
+				JFrame frame = new JFrame();
+				frame.setLayout(new FlowLayout());
+				frame.setSize(600,600);
+				JLabel lbl = new JLabel();
+				
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				for(int i=0;i<100; i++){
+					p.playMovie3(lbl,frame,i);
+				}
+				
+//				p.start();
+//				System.out.println("This movie is playing");
+//				int i=0;
+//				while(i<100){
+//					p.playMovie();
+//					i=i+1;
+//					System.out.println("Robbie end loop");
+//				}
+				System.out.println("Robbie end while!?");
+				
+				System.out.println("This movie has played");
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
     	}
     };
 

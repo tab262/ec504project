@@ -15,14 +15,41 @@ public class Main {
 	public static void printUsageMessage(){
 		System.out.println("Usage:");
 		System.out.println("ptm -g (for GUI)");
-		System.out.println("ptm -d directory");
-		System.out.println("ptm -f file1,file2,...");
+		System.out.println("ptm -d [source directory] -o [output file name]");
+		System.out.println("ptm -f [file1,file2,...,filen] -o [output file name]");
 		System.exit(0);
 	}
 	
-	public static void directoryMode(String directory) throws IOException{
+	public static void directoryMode(String[] args) throws IOException{
+		String newFileName = null;
+		System.out.println(args.length);
+		
+		// Checking arguments: directory mode should have 4
+		// 1. -d
+		// 2. directory
+		// 3. -o
+		// 4. output file name
+		// If the user fails to specify a name, it will be assigned the time and date as the title
+		if(args.length == 4 && args[2].equals("-o")){
+			newFileName = args[3];
+		}else if(args.length == 2){
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			Date date = new Date();
+			newFileName = dateFormat.format(date);
+			newFileName = newFileName.replace(' ', '_') + "_movie";
+			System.out.println(newFileName);
+		}else{
+			printUsageMessage();
+		}
+		String directory = args[1];	
 		System.out.println("Directory Mode:" + directory);
 		File folder = new File(directory);
+		
+		if(!folder.isDirectory()){
+			System.out.println(directory + " is not a valid directory");
+			System.exit(-1);
+		}
+		System.out.println("Files....");
 		File[] listOfFiles = folder.listFiles();
 		int numFiles = 0;
 		for(int i = 0; i < listOfFiles.length;i++){
@@ -30,6 +57,12 @@ public class Main {
 				numFiles++;
 			}
 		}
+		
+		if(numFiles == 0){
+			System.out.println("No jpegs found in this directory...");
+			System.exit(-1);
+		}
+		
 		Arrays.sort(listOfFiles);
 		String fileNames[] = new String[numFiles];
 		//http://stackoverflow.com/questions/5694385/getting-the-filenames-of-all-files-in-a-folder
@@ -48,9 +81,9 @@ public class Main {
 		System.out.println("Making movie...");
 		float quality = 0.6f;
 
-		Movie m = new Movie(fileNames,quality);
-		String dirName = System.getProperty("user.dir") + "/data/";
-		m.saveMovie("example",dirName);
+		//Movie m = new Movie(fileNames,quality);
+		//String dirName = System.getProperty("user.dir") + "/data/";
+		//m.saveMovie("example",dirName);
 	}
 
 	public static void fileMode(String[] args) throws IOException{
@@ -111,8 +144,8 @@ public class Main {
 			printUsageMessage();
 		}else{			
 			if(args[0].equals("-d")){
-				if(args.length > 1 && args.length <=2){
-					directoryMode(args[1]); //passes directory path
+				if(args.length > 1 && args.length <=4){
+					directoryMode(args); //passes directory path
 				}else{
 					printUsageMessage();
 				}
